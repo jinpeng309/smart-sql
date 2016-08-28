@@ -17,7 +17,7 @@ public class ColumnName implements Visitable {
 
     public ColumnName(final String rawName) {
         if (rawName.contains(".")) {
-            final String[] names = rawName.split(".");
+            final String[] names = rawName.split("\\.");
             tableName = new TableName(new UserDefinedName(names[0]));
             columnIdentifier = new ColumnIdentifier(new UserDefinedName(names[1]));
         } else {

@@ -134,7 +134,7 @@ public class Visitor {
             visit(columnName.getTableName());
             append(".");
         }
-        visit(columnName.getColumnIdentifier());
+        append(columnName.getColumnIdentifier().getName().getName());
         if (columnName.getAliasName() != null) {
             append(" AS");
             visit(columnName.getAliasName());

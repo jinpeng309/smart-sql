@@ -10,7 +10,7 @@ import static com.capslock.sql.Sql.table;
  */
 public class App {
     public static void main(String[] args) {
-        final ColumnName name = new ColumnName("name");
+        final ColumnName name = new ColumnName("Student.name");
         final ColumnName id = new ColumnName("id");
         final ColumnName address = new ColumnName("address");
         final ColumnName email = new ColumnName("email");
