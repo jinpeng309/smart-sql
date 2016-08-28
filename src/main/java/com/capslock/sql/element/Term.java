@@ -15,6 +15,7 @@ public class Term implements Visitable {
         this.factor = factor;
     }
 
+
     public Factor getFactor() {
         return factor;
     }

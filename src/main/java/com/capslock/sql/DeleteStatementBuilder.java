@@ -1,8 +1,6 @@
 package com.capslock.sql;
 
-import com.capslock.sql.element.DeleteStatementSearched;
-import com.capslock.sql.element.SearchCondition;
-import com.capslock.sql.element.TableName;
+import com.capslock.sql.element.*;
 
 /**
  * Created by capslock1874.
@@ -25,6 +23,13 @@ public class DeleteStatementBuilder {
 
     public DeleteStatementBuilder where(final SearchCondition condition) {
         this.condition = condition;
+        return this;
+    }
+
+    public DeleteStatementBuilder where(final ComparisonPredicate condition) {
+        final BooleanPrimary booleanPrimary = new BooleanPrimary();
+        booleanPrimary.setComparisonPredicate(condition);
+        this.condition = new SearchCondition(new BooleanTerm(new BooleanFactor(booleanPrimary)));
         return this;
     }
 

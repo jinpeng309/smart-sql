@@ -35,9 +35,10 @@ public class Visitor {
     public void visit(final Factor factor) {
         if (factor.getOperator() != null) {
             visit(factor.getOperator());
-        }
-        if (factor.getLiteral() != null) {
+        } else if (factor.getLiteral() != null) {
             visit(factor.getLiteral());
+        } else if (factor.getColumnName() != null) {
+            visit(factor.getColumnName());
         } else {
             append("(");
             visit(factor.getExpress());
@@ -80,6 +81,8 @@ public class Visitor {
         if (booleanFactor.isHasNot()) {
             appendSpace();
             append("NOT");
+            visit(booleanFactor.getPrimary());
+        } else {
             visit(booleanFactor.getPrimary());
         }
     }
@@ -129,7 +132,7 @@ public class Visitor {
             append(".");
         }
         visit(columnName.getColumnIdentifier());
-        if (columnName.getAliasName() != null){
+        if (columnName.getAliasName() != null) {
             append(" AS");
             visit(columnName.getAliasName());
         }

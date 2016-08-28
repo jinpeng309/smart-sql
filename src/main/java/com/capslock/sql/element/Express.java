@@ -11,6 +11,18 @@ public class Express implements Visitable {
     private Express express;
     private BinaryOperator binaryOperator;
 
+    public Express(final Term term) {
+        this.term = term;
+    }
+
+    public Express(final ColumnName columnName) {
+        this.term = new Term(new Factor(columnName));
+    }
+
+    public Express(final String value) {
+        this.term = new Term(new Factor(value));
+    }
+
     public Term getTerm() {
         return term;
     }

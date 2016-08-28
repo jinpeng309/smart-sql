@@ -1,12 +1,17 @@
 package com.capslock.sql;
 
 import com.capslock.sql.element.TableName;
+import com.capslock.sql.element.UserDefinedName;
 
 /**
  * Created by capslock1874.
  */
 public class Sql {
-    public DeleteStatementBuilder delete(final TableName tableName){
+    public static DeleteStatementBuilder delete(final TableName tableName) {
         return new DeleteStatementBuilder(tableName);
+    }
+
+    public static TableName table(final String name){
+        return new TableName(new UserDefinedName(name));
     }
 }
