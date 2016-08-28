@@ -98,6 +98,7 @@ public class Visitor {
     public void visit(final SearchCondition searchCondition) {
         visit(searchCondition.getTerm());
         if (searchCondition.getSearchCondition() != null) {
+            append(" OR");
             visit(searchCondition.getSearchCondition());
         }
     }
@@ -110,11 +111,13 @@ public class Visitor {
 
     public void visit(final BooleanTerm booleanTerm) {
         appendSpace();
+        append("(");
         visit(booleanTerm.getFactor());
         if (booleanTerm.getTerm() != null) {
             append(" AND ");
             visit(booleanTerm.getTerm());
         }
+        append(")");
     }
 
     public void visit(final ColumnIdentifier columnIdentifier) {

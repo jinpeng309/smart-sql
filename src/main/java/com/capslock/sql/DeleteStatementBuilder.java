@@ -33,6 +33,11 @@ public class DeleteStatementBuilder {
         return this;
     }
 
+    public DeleteStatementBuilder where(final BooleanTerm condition) {
+        this.condition = new SearchCondition(condition);
+        return this;
+    }
+
     public DeleteStatementSearched build() {
         return new DeleteStatementSearched(tableName, condition);
     }

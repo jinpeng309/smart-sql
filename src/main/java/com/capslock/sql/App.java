@@ -11,6 +11,14 @@ import static com.capslock.sql.Sql.table;
 public class App {
     public static void main(String[] args) {
         final ColumnName name = new ColumnName("name");
-        System.out.println(delete(table("Student")).where(name.eq("testName")).toSql());
+        final ColumnName id = new ColumnName("id");
+        final ColumnName address = new ColumnName("address");
+        final ColumnName email = new ColumnName("email");
+        final String sql = delete(table("Student"))
+                .where(name.eq("testName").and(id.eq("1"))
+                        .or(address.eq("home")
+                                .and(email.eq("a@qq.com"))))
+                .toSql();
+        System.out.println(sql);
     }
 }

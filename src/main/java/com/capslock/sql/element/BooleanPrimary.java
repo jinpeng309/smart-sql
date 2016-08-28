@@ -10,6 +10,11 @@ public class BooleanPrimary implements Visitable{
     private ComparisonPredicate comparisonPredicate;
     private SearchCondition searchCondition;
 
+    public BooleanPrimary(){}
+    public BooleanPrimary(final ComparisonPredicate comparisonPredicate) {
+        this.comparisonPredicate = comparisonPredicate;
+    }
+
     public ComparisonPredicate getComparisonPredicate() {
         return comparisonPredicate;
     }
