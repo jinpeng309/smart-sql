@@ -11,6 +11,10 @@ public class Sql {
         return new DeleteStatementBuilder(tableName);
     }
 
+    public static UpdateStatementBuilder update(final TableName tableName){
+        return new UpdateStatementBuilder(tableName);
+    }
+
     public static TableName table(final String name){
         return new TableName(new UserDefinedName(name));
     }

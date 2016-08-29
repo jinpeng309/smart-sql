@@ -1,7 +1,7 @@
-package com.capslock.sql.element;
+package com.capslock.sql;
 
-import com.capslock.sql.Visitable;
-import com.capslock.sql.Visitor;
+import com.capslock.sql.element.SearchCondition;
+import com.capslock.sql.element.TableName;
 
 /**
  * Created by capslock1874.

@@ -196,4 +196,26 @@ public class Visitor {
         append("WHERE");
         visit(deleteStatementSearched.getSearchCondition());
     }
+
+    public void visit(final UpdateStatementSearched updateStatementSearched) {
+        append("UPDATE");
+        visit(updateStatementSearched.getTableName());
+        append(" SET");
+        for (int i = 0; i < updateStatementSearched.getSetClauses().size(); i++) {
+            visit(updateStatementSearched.getSetClauses().get(i));
+            if (i != updateStatementSearched.getSetClauses().size() - 1) {
+                append(",");
+            }
+        }
+        if (updateStatementSearched.getCondition() != null){
+            append("WHERE ");
+            visit(updateStatementSearched.getCondition());
+        }
+    }
+
+    public void visit(final SetClause setClause) {
+        visit(setClause.getColumnName());
+        visit(BinaryOperator.EQ);
+        visit(setClause.getExpress());
+    }
 }

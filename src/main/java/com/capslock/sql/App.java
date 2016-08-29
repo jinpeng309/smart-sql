@@ -1,9 +1,9 @@
 package com.capslock.sql;
 
 import com.capslock.sql.element.ColumnName;
+import com.capslock.sql.element.Express;
 
-import static com.capslock.sql.Sql.delete;
-import static com.capslock.sql.Sql.table;
+import static com.capslock.sql.Sql.*;
 
 /**
  * Created by capslock1874.
@@ -20,5 +20,7 @@ public class App {
                                 .and(email.eq("a@qq.com"))))
                 .toSql();
         System.out.println(sql);
+        final String updateSql = update(table("Student")).set(name, new Express("test")).set(email, new Express("824@qq.com")).toSql();
+        System.out.println(updateSql);
     }
 }
