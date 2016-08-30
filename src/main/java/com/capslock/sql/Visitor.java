@@ -176,7 +176,7 @@ public class Visitor {
     }
 
     public void visit(final TableReference reference) {
-        visit(reference.getName());
+        visit(reference.getPrimaryTable());
     }
 
     public void visit(final TableReferenceList tableReferenceList) {
@@ -217,5 +217,13 @@ public class Visitor {
         visit(setClause.getColumnName());
         visit(BinaryOperator.EQ);
         visit(setClause.getExpress());
+    }
+
+    public void visit(final QualifiedJoinTable joinedTable) {
+
+    }
+
+    public void visit(final JoinedTable joinedTable) {
+
     }
 }
