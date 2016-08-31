@@ -34,8 +34,8 @@ public class TableReference implements Visitable {
         return name;
     }
 
-    public JoinedTable join(final TableReference tableReference) {
-        return new JoinedTable(this, tableReference);
+    public TableReference join(final TableReference tableReference) {
+        return new TableReference(new JoinedTable(this, tableReference));
     }
 
     @Override

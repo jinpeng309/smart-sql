@@ -9,15 +9,15 @@ import java.util.List;
  * Created by capslock1874.
  */
 public class UpdateStatementBuilder {
-    private final TableName tableName;
+    private final TableReference tableName;
     private SearchCondition condition;
     private final List<SetClause> setClauseList = new ArrayList<>();
 
-    public UpdateStatementBuilder(final TableName tableName) {
+    public UpdateStatementBuilder(final TableReference tableName) {
         this.tableName = tableName;
     }
 
-    public TableName getTableName() {
+    public TableReference getTableName() {
         return tableName;
     }
 

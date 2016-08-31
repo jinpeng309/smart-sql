@@ -2,20 +2,21 @@ package com.capslock.sql;
 
 import com.capslock.sql.element.SearchCondition;
 import com.capslock.sql.element.TableName;
+import com.capslock.sql.element.TableReference;
 
 /**
  * Created by capslock1874.
  */
 public class DeleteStatementSearched implements Visitable {
-    private final TableName tableName;
+    private final TableReference tableName;
     private final SearchCondition searchCondition;
 
-    public DeleteStatementSearched(final TableName tableName, final SearchCondition searchCondition) {
+    public DeleteStatementSearched(final TableReference tableName, final SearchCondition searchCondition) {
         this.tableName = tableName;
         this.searchCondition = searchCondition;
     }
 
-    public TableName getTableName() {
+    public TableReference getTableName() {
         return tableName;
     }
 

@@ -6,10 +6,10 @@ import com.capslock.sql.element.*;
  * Created by capslock1874.
  */
 public class DeleteStatementBuilder {
-    private final TableName tableName;
+    private final TableReference tableName;
     private SearchCondition condition;
 
-    public DeleteStatementBuilder(final TableName tableName) {
+    public DeleteStatementBuilder(final TableReference tableName) {
         this.tableName = tableName;
     }
 
@@ -17,7 +17,7 @@ public class DeleteStatementBuilder {
         return condition;
     }
 
-    public TableName getTableName() {
+    public TableReference getTableName() {
         return tableName;
     }
 
