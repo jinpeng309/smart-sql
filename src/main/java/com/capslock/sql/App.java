@@ -3,6 +3,7 @@ package com.capslock.sql;
 import com.capslock.sql.element.ColumnName;
 
 import static com.capslock.sql.Sql.delete;
+import static com.capslock.sql.Sql.select;
 import static com.capslock.sql.Sql.stringExpress;
 import static com.capslock.sql.Sql.table;
 import static com.capslock.sql.Sql.update;

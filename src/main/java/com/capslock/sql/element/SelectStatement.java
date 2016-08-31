@@ -1,7 +1,7 @@
 package com.capslock.sql.element;
 
 /**
- * Created by alvin.
+ * Created by capslock1874.
  */
 public class SelectStatement {
     private final SelectList selectList;

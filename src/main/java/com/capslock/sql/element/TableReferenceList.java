@@ -19,8 +19,9 @@ public class TableReferenceList implements Visitable {
         return referenceList;
     }
 
-    public void addReference(final TableReference reference) {
+    public TableReferenceList addReference(final TableReference reference) {
         referenceList.add(reference);
+        return this;
     }
 
     @Override

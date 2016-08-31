@@ -1,9 +1,17 @@
 package com.capslock.sql;
 
+import com.capslock.sql.element.ColumnName;
 import com.capslock.sql.element.Express;
+import com.capslock.sql.element.Factor;
+import com.capslock.sql.element.SelectList;
+import com.capslock.sql.element.SelectSubList;
 import com.capslock.sql.element.TableName;
 import com.capslock.sql.element.TableReference;
+import com.capslock.sql.element.Term;
 import com.capslock.sql.element.UserDefinedName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by capslock1874.
@@ -15,6 +23,19 @@ public class Sql {
 
     public static UpdateStatementBuilder update(final TableReference tableName) {
         return new UpdateStatementBuilder(tableName);
+    }
+
+    public static SelectStatementBuilder select(final ColumnName... columnNames) {
+        final List<SelectSubList> subList = new ArrayList<>();
+        for (final ColumnName columnName : columnNames) {
+            subList.add(new SelectSubList(convertColumnNameToTerm(columnName)));
+        }
+        final SelectList selectList = new SelectList(subList);
+        return new SelectStatementBuilder(selectList);
+    }
+
+    public static Term convertColumnNameToTerm(final ColumnName columnName) {
+        return new Term(new Factor(columnName));
     }
 
     public static TableReference table(final String name) {
