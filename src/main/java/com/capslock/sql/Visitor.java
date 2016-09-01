@@ -211,7 +211,11 @@ public class Visitor {
         if (tableReference.getPrimaryTable() != null) {
             visit(tableReference.getPrimaryTable());
         } else {
-            visit(tableReference.getJoinedTable());
+            if (tableReference.getJoinedTable() instanceof QualifiedJoinTable) {
+                visit((QualifiedJoinTable) tableReference.getJoinedTable());
+            } else {
+                visit(tableReference.getJoinedTable());
+            }
         }
     }
 
@@ -255,8 +259,25 @@ public class Visitor {
         visit(setClause.getExpress());
     }
 
-    public void visit(final QualifiedJoinTable joinedTable) {
+    public void visit(final QualifiedJoinTable table) {
+        visit(table.getLeft());
+        append(" join");
+        visit(table.getRight());
+        append(" on ");
+        final List<QualifiedJoinTable.ColumnPair> columnPairs = table.getColumnPairs();
+        visit(columnPairs);
+    }
 
+    private void visit(final List<QualifiedJoinTable.ColumnPair> columnPairs) {
+        for (int i = 0; i < columnPairs.size(); i++) {
+            final QualifiedJoinTable.ColumnPair columnPair = columnPairs.get(i);
+            visit(columnPair.getLeft());
+            append(" = ");
+            visit(columnPair.getRight());
+            if (i != columnPairs.size() - 1) {
+                append(", ");
+            }
+        }
     }
 
     public void visit(final JoinedTable joinedTable) {

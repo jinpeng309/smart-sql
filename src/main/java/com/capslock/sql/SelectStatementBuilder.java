@@ -2,6 +2,7 @@ package com.capslock.sql;
 
 import com.capslock.sql.element.BooleanTerm;
 import com.capslock.sql.element.ComparisonPredicate;
+import com.capslock.sql.element.QualifiedJoinTable;
 import com.capslock.sql.element.SearchCondition;
 import com.capslock.sql.element.SelectList;
 import com.capslock.sql.element.SelectStatement;
@@ -27,6 +28,10 @@ public class SelectStatementBuilder {
 
     public SelectStatementBuilder from(final TableReference tableReference) {
         return from(new TableReferenceList().addReference(tableReference));
+    }
+
+    public SelectStatementBuilder from(final QualifiedJoinTable table) {
+        return from(new TableReferenceList().addReference(new TableReference(table)));
     }
 
     public SelectStatementBuilder where(final SearchCondition searchCondition) {
@@ -63,4 +68,5 @@ public class SelectStatementBuilder {
     public SelectStatementBuilder where(final BooleanTerm condition) {
         return where(new SearchCondition(condition));
     }
+
 }

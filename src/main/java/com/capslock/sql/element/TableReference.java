@@ -38,6 +38,10 @@ public class TableReference implements Visitable {
         return new TableReference(new JoinedTable(this, tableReference));
     }
 
+    public QualifiedJoinTable on(final ColumnName left, final ColumnName right) {
+        return getJoinedTable().on(left, right);
+    }
+
     @Override
     public void visit(final Visitor visitor) {
         visitor.visit(this);
