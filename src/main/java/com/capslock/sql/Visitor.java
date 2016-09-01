@@ -1,6 +1,33 @@
 package com.capslock.sql;
 
-import com.capslock.sql.element.*;
+import com.capslock.sql.element.BinaryOperator;
+import com.capslock.sql.element.BooleanFactor;
+import com.capslock.sql.element.BooleanPrimary;
+import com.capslock.sql.element.BooleanTerm;
+import com.capslock.sql.element.ColumnIdentifier;
+import com.capslock.sql.element.ColumnName;
+import com.capslock.sql.element.ComparisonPredicate;
+import com.capslock.sql.element.Express;
+import com.capslock.sql.element.Factor;
+import com.capslock.sql.element.JoinedTable;
+import com.capslock.sql.element.Literal;
+import com.capslock.sql.element.OrderByClause;
+import com.capslock.sql.element.QualifiedJoinTable;
+import com.capslock.sql.element.SearchCondition;
+import com.capslock.sql.element.SelectList;
+import com.capslock.sql.element.SelectStatement;
+import com.capslock.sql.element.SelectSubList;
+import com.capslock.sql.element.SetClause;
+import com.capslock.sql.element.SortSpecification;
+import com.capslock.sql.element.TableIdentifier;
+import com.capslock.sql.element.TableName;
+import com.capslock.sql.element.TableReference;
+import com.capslock.sql.element.TableReferenceList;
+import com.capslock.sql.element.Term;
+import com.capslock.sql.element.UnaryOperator;
+import com.capslock.sql.element.UserDefinedName;
+
+import java.util.List;
 
 /**
  * Created by capslock1874.
@@ -166,8 +193,13 @@ public class Visitor {
     }
 
     public void visit(final SelectList selectList) {
-        for (final SelectSubList subList : selectList.getSelectSubLists()) {
+        final List<SelectSubList> selectSubLists = selectList.getSelectSubLists();
+        for (int i = 0; i < selectSubLists.size(); i++) {
+            final SelectSubList subList = selectSubLists.get(i);
             visit(subList);
+            if (i != selectSubLists.size() - 1) {
+                append(", ");
+            }
         }
     }
 
@@ -175,8 +207,12 @@ public class Visitor {
         visit(tableIdentifier.getName());
     }
 
-    public void visit(final TableReference reference) {
-        visit(reference.getPrimaryTable());
+    public void visit(final TableReference tableReference) {
+        if (tableReference.getPrimaryTable() != null) {
+            visit(tableReference.getPrimaryTable());
+        } else {
+            visit(tableReference.getJoinedTable());
+        }
     }
 
     public void visit(final TableReferenceList tableReferenceList) {
@@ -207,7 +243,7 @@ public class Visitor {
                 append(",");
             }
         }
-        if (updateStatementSearched.getCondition() != null){
+        if (updateStatementSearched.getCondition() != null) {
             append("WHERE ");
             visit(updateStatementSearched.getCondition());
         }
@@ -224,6 +260,19 @@ public class Visitor {
     }
 
     public void visit(final JoinedTable joinedTable) {
+        visit(joinedTable.getLeft());
+        append(" join");
+        visit(joinedTable.getRight());
+    }
 
+    public void visit(final SelectStatement build) {
+        append("SELECT");
+        visit(build.getSelectList());
+        append(" FROM");
+        visit(build.getTableReferenceList());
+        if (build.getSearchCondition() != null) {
+            append(" WHERE");
+            visit(build.getSearchCondition());
+        }
     }
 }

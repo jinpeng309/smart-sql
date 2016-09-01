@@ -25,5 +25,6 @@ public class App {
         System.out.println(sql);
         final String updateSql = update(table("Student")).set(name, stringExpress("test")).set(email, stringExpress("824@qq.com")).toSql();
         System.out.println(updateSql);
+        System.out.println(select(name, id).from(table("address").join(table("student"))).where(address.eq("address").and(name.eq("name"))).toSql());
     }
 }
