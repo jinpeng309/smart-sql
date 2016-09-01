@@ -261,9 +261,9 @@ public class Visitor {
 
     public void visit(final QualifiedJoinTable table) {
         visit(table.getLeft());
-        append(" join");
+        append(" JOIN");
         visit(table.getRight());
-        append(" on ");
+        append(" ON");
         final List<QualifiedJoinTable.ColumnPair> columnPairs = table.getColumnPairs();
         visit(columnPairs);
     }
@@ -271,11 +271,13 @@ public class Visitor {
     private void visit(final List<QualifiedJoinTable.ColumnPair> columnPairs) {
         for (int i = 0; i < columnPairs.size(); i++) {
             final QualifiedJoinTable.ColumnPair columnPair = columnPairs.get(i);
+            appendSpace();
             visit(columnPair.getLeft());
-            append(" = ");
+            append(" =");
+            appendSpace();
             visit(columnPair.getRight());
             if (i != columnPairs.size() - 1) {
-                append(", ");
+                append(",");
             }
         }
     }
