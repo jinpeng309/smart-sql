@@ -34,6 +34,18 @@ public class Sql {
         return new SelectStatementBuilder(selectList);
     }
 
+    public static InsertStatementBuilder insertInto(final TableReference tableReference) {
+        return new InsertStatementBuilder(tableReference);
+    }
+
+    public static InsertStatementBuilder insertIgnoreInto(final TableReference tableReference) {
+        return new InsertStatementBuilder(tableReference, true, false);
+    }
+
+    public static InsertStatementBuilder insertReplaceInto(final TableReference tableReference) {
+        return new InsertStatementBuilder(tableReference, false, true);
+    }
+
     public static Term convertColumnNameToTerm(final ColumnName columnName) {
         return new Term(new Factor(columnName));
     }

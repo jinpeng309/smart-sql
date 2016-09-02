@@ -9,6 +9,7 @@ import com.capslock.sql.element.ColumnName;
 import com.capslock.sql.element.ComparisonPredicate;
 import com.capslock.sql.element.Express;
 import com.capslock.sql.element.Factor;
+import com.capslock.sql.element.InsertValue;
 import com.capslock.sql.element.JoinedTable;
 import com.capslock.sql.element.Literal;
 import com.capslock.sql.element.OrderByClause;
@@ -297,5 +298,43 @@ public class Visitor {
             append(" WHERE");
             visit(build.getSearchCondition());
         }
+    }
+
+    public void visit(final InsertValue insertValue) {
+        if (insertValue.isNull()) {
+            append(" NULL");
+        } else {
+            visit(insertValue.getLiteral());
+        }
+    }
+
+    public void visit(final InsertStatement insertStatement) {
+        if (insertStatement.isIgnore()) {
+            append("INSERT OR IGNORE INTO");
+        } else if (insertStatement.isReplace()) {
+            append("INSERT OR REPLACE INTO");
+        } else {
+            append("INSERT INTO");
+        }
+        visit(insertStatement.getTableReference());
+        List<InsertStatement.ColumnValuePair> pairs = insertStatement.getPairs();
+        append(" (");
+        for (int i = 0; i < pairs.size(); i++) {
+            visit(pairs.get(i).getColumn());
+            if (i != pairs.size() - 1) {
+                append(",");
+            }
+        }
+        append(")");
+        append(" VALUES");
+        appendSpace();
+        append("(");
+        for (int i = 0; i < pairs.size(); i++) {
+            visit(pairs.get(i).getValue());
+            if (i != pairs.size() - 1) {
+                append(",");
+            }
+        }
+        append(")");
     }
 }
