@@ -42,7 +42,15 @@ public class Sql {
         return new TableReference(new TableName(new UserDefinedName(name)));
     }
 
+    public static ColumnName column(final String name) {
+        return new ColumnName(name);
+    }
+
     public static Express stringExpress(final String value) {
         return new Express(value);
+    }
+
+    public static <T extends Number> Express number(final T value) {
+        return new Express(value.toString());
     }
 }
