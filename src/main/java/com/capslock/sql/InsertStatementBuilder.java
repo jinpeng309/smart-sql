@@ -4,7 +4,7 @@ import com.capslock.sql.element.ColumnIdentifier;
 import com.capslock.sql.element.ColumnName;
 import com.capslock.sql.element.Express;
 import com.capslock.sql.element.InsertValue;
-import com.capslock.sql.element.TableReference;
+import com.capslock.sql.element.TableName;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,17 +13,17 @@ import java.util.List;
  * Created by capslock1874.
  */
 public class InsertStatementBuilder {
-    private final TableReference tableReference;
+    private final TableName tableName;
     private boolean isIgnore = false;
     private boolean isReplace = false;
     private List<InsertStatement.ColumnValuePair> pairs = new ArrayList<>();
 
-    public InsertStatementBuilder(final TableReference tableReference) {
-        this.tableReference = tableReference;
+    public InsertStatementBuilder(final TableName tableName) {
+        this.tableName = tableName;
     }
 
-    public InsertStatementBuilder(final TableReference tableReference, final boolean isIgnore, final boolean isReplace) {
-        this.tableReference = tableReference;
+    public InsertStatementBuilder(final TableName tableName, final boolean isIgnore, final boolean isReplace) {
+        this.tableName = tableName;
         this.isIgnore = isIgnore;
         this.isReplace = isReplace;
     }
@@ -42,8 +42,8 @@ public class InsertStatementBuilder {
         return value(columnName, new InsertValue(express.getTerm().getFactor().getLiteral()));
     }
 
-    public TableReference getTableReference() {
-        return tableReference;
+    public TableName getTableName() {
+        return tableName;
     }
 
     public boolean isIgnore() {
@@ -59,7 +59,7 @@ public class InsertStatementBuilder {
     }
 
     public InsertStatement build() {
-        return new InsertStatement(getTableReference(), isIgnore(), isReplace(), getPairs());
+        return new InsertStatement(getTableName(), isIgnore(), isReplace(), getPairs());
     }
 
     public String toSql() {

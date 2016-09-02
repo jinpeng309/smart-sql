@@ -35,15 +35,15 @@ public class Sql {
     }
 
     public static InsertStatementBuilder insertInto(final TableReference tableReference) {
-        return new InsertStatementBuilder(tableReference);
+        return new InsertStatementBuilder(tableReference.getPrimaryTable());
     }
 
     public static InsertStatementBuilder insertIgnoreInto(final TableReference tableReference) {
-        return new InsertStatementBuilder(tableReference, true, false);
+        return new InsertStatementBuilder(tableReference.getPrimaryTable(), true, false);
     }
 
     public static InsertStatementBuilder insertReplaceInto(final TableReference tableReference) {
-        return new InsertStatementBuilder(tableReference, false, true);
+        return new InsertStatementBuilder(tableReference.getPrimaryTable(), false, true);
     }
 
     public static Term convertColumnNameToTerm(final ColumnName columnName) {

@@ -325,7 +325,7 @@ public class Visitor {
         } else {
             append("INSERT INTO");
         }
-        visit(insertStatement.getTableReference());
+        visit(insertStatement.getTableName());
         List<InsertStatement.ColumnValuePair> pairs = insertStatement.getPairs();
         append(" (");
         for (int i = 0; i < pairs.size(); i++) {

@@ -2,7 +2,7 @@ package com.capslock.sql;
 
 import com.capslock.sql.element.ColumnIdentifier;
 import com.capslock.sql.element.InsertValue;
-import com.capslock.sql.element.TableReference;
+import com.capslock.sql.element.TableName;
 
 import java.util.List;
 
@@ -10,13 +10,13 @@ import java.util.List;
  * Created by capslock1874.
  */
 public class InsertStatement implements Visitable{
-    private final TableReference tableReference;
+    private final TableName tableName;
     private final boolean isIgnore;
     private final boolean isReplace;
     private final List<ColumnValuePair> pairs;
 
-    public InsertStatement(final TableReference tableReference, final boolean isIgnore, final boolean isReplace, final List<ColumnValuePair> pairs) {
-        this.tableReference = tableReference;
+    public InsertStatement(final TableName tableName, final boolean isIgnore, final boolean isReplace, final List<ColumnValuePair> pairs) {
+        this.tableName = tableName;
         this.isIgnore = isIgnore;
         this.isReplace = isReplace;
         this.pairs = pairs;
@@ -34,8 +34,8 @@ public class InsertStatement implements Visitable{
         return pairs;
     }
 
-    public TableReference getTableReference() {
-        return tableReference;
+    public TableName getTableName() {
+        return tableName;
     }
 
     @Override
