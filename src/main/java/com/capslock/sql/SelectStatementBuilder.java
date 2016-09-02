@@ -1,11 +1,14 @@
 package com.capslock.sql;
 
 import com.capslock.sql.element.BooleanTerm;
+import com.capslock.sql.element.ColumnName;
 import com.capslock.sql.element.ComparisonPredicate;
+import com.capslock.sql.element.Order;
+import com.capslock.sql.element.OrderByClause;
 import com.capslock.sql.element.QualifiedJoinTable;
 import com.capslock.sql.element.SearchCondition;
 import com.capslock.sql.element.SelectList;
-import com.capslock.sql.element.SelectStatement;
+import com.capslock.sql.element.SortSpecification;
 import com.capslock.sql.element.TableReference;
 import com.capslock.sql.element.TableReferenceList;
 
@@ -16,6 +19,7 @@ public class SelectStatementBuilder {
     private SelectList selectList;
     private TableReferenceList tableReferenceList;
     private SearchCondition searchCondition;
+    private OrderByClause orderByClause;
 
     public SelectStatementBuilder(final SelectList selectList) {
         this.selectList = selectList;
@@ -43,6 +47,31 @@ public class SelectStatementBuilder {
         return where(new SearchCondition(new BooleanTerm(comparisonPredicate)));
     }
 
+    public SelectStatementBuilder orderBy(final ColumnName columnName){
+        return orderBy(new SortSpecification().setColumnName(columnName));
+    }
+
+    public SelectStatementBuilder orderBy(final ColumnName columnName, final Order order){
+        return orderBy(new SortSpecification().setColumnName(columnName).setOrder(order));
+    }
+
+    public SelectStatementBuilder orderBy(final SortSpecification sortSpecification) {
+        if (orderByClause == null) {
+            orderByClause = new OrderByClause();
+        }
+        orderByClause.addSpecification(sortSpecification);
+        return this;
+    }
+
+    public SelectStatementBuilder orderBy(final SortSpecification sortSpecification, final Order order) {
+        if (orderByClause == null) {
+            orderByClause = new OrderByClause();
+        }
+        sortSpecification.setOrder(order);
+        orderByClause.addSpecification(sortSpecification);
+        return this;
+    }
+
     public SelectList getSelectList() {
         return selectList;
     }
@@ -55,8 +84,12 @@ public class SelectStatementBuilder {
         return searchCondition;
     }
 
+    public OrderByClause getOrderByClause() {
+        return orderByClause;
+    }
+
     public SelectStatement build() {
-        return new SelectStatement(getSelectList(), getTableReferenceList(), getSearchCondition());
+        return new SelectStatement(getSelectList(), getTableReferenceList(), getSearchCondition(), getOrderByClause());
     }
 
     public String toSql() {

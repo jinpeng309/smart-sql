@@ -16,7 +16,6 @@ import com.capslock.sql.element.OrderByClause;
 import com.capslock.sql.element.QualifiedJoinTable;
 import com.capslock.sql.element.SearchCondition;
 import com.capslock.sql.element.SelectList;
-import com.capslock.sql.element.SelectStatement;
 import com.capslock.sql.element.SelectSubList;
 import com.capslock.sql.element.SetClause;
 import com.capslock.sql.element.SortSpecification;
@@ -187,9 +186,15 @@ public class Visitor {
 
     public void visit(final SortSpecification sortSpecification) {
         if (sortSpecification.getColumnIndex() >= 0) {
+            appendSpace();
             append(Integer.toString(sortSpecification.getColumnIndex()));
+            appendSpace();
+            append(sortSpecification.getOrder().toString());
         } else {
+            appendSpace();
             visit(sortSpecification.getColumnName());
+            appendSpace();
+            append(sortSpecification.getOrder().toString());
         }
     }
 
@@ -289,14 +294,18 @@ public class Visitor {
         visit(joinedTable.getRight());
     }
 
-    public void visit(final SelectStatement build) {
+    public void visit(final SelectStatement statement) {
         append("SELECT");
-        visit(build.getSelectList());
+        visit(statement.getSelectList());
         append(" FROM");
-        visit(build.getTableReferenceList());
-        if (build.getSearchCondition() != null) {
+        visit(statement.getTableReferenceList());
+        if (statement.getSearchCondition() != null) {
             append(" WHERE");
-            visit(build.getSearchCondition());
+            visit(statement.getSearchCondition());
+        }
+
+        if (statement.getOrderByClause() != null) {
+            visit(statement.getOrderByClause());
         }
     }
 

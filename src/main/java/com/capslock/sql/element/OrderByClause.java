@@ -12,8 +12,12 @@ import java.util.List;
 public class OrderByClause implements Visitable{
     private List<SortSpecification> sortSpecifications = new ArrayList<>();
 
+    public OrderByClause(){
+
+    }
+
     public OrderByClause(final List<SortSpecification> sortSpecifications) {
-        this.sortSpecifications = sortSpecifications;
+        this.sortSpecifications.addAll(sortSpecifications);
     }
 
     public void addSpecification(final SortSpecification sortSpecification) {
